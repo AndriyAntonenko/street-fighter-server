@@ -3,7 +3,7 @@ const createError = require("http-errors");
 
 const User = require("../models/User");
 
-const validator = require("../validation");
+const validator = require("../validation/users");
 
 const router = express.Router();
 
