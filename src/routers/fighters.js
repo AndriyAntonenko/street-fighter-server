@@ -69,4 +69,28 @@ router.get("/fighter/:id", validator.checkId, (req, res, next) => {
     });
 });
 
+router.put(
+  "/fighter/:id",
+  validator.updateFighterValidation,
+  (req, res, next) => {
+    const { id } = req.params;
+    const { body } = req;
+
+    Fighters.findByIdAndUpdate(id, body, { new: true })
+      .then(fighter => {
+        if (!fighter) {
+          throw createError(404, "User with such id not found");
+        }
+
+        res.status(200).json({
+          success: true,
+          fighter
+        });
+      })
+      .catch(err => {
+        next(err);
+      });
+  }
+);
+
 module.exports = router;
